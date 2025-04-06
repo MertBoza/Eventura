@@ -9,6 +9,65 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+model User {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  roleId    Int
+  role      Role     @relation(fields: [roleId], references: [id])
+  events    Event[]
+  tickets   Ticket[]
+}
+
+model Role {
+  id          Int             @id @default(autoincrement())
+  name        String
+  description String?
+  users       User[]
+  privileges  RolePrivilege[]
+}
+
+model RolePrivilege {
+  id     Int     @id @default(autoincrement())
+  roleId Int
+  select Boolean @default(false)
+  insert Boolean @default(false)
+  update Boolean @default(false)
+  delete Boolean @default(false)
+  role   Role    @relation(fields: [roleId], references: [id])
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  date        DateTime
+  location    String
+  imagePath   String? // Nullable image path
+  categoryId  Int
+  organizerId Int
+  category    Category @relation(fields: [categoryId], references: [id])
+  organizer   User     @relation(fields: [organizerId], references: [id])
+  tickets     Ticket[]
+}
+
+model Category {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  events Event[]
+}
+
+model Ticket {
+  id      Int    @id @default(autoincrement())
+  eventId Int
+  userId  Int?
+  price   Float
+  status  String @default("available")
+  event   Event  @relation(fields: [eventId], references: [id])
+  user    User?  @relation(fields: [userId], references: [id])
 }
