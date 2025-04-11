@@ -5,16 +5,17 @@ const port = 3000;
 
 app.use(express.json());
 
-const ticketsRouter = require("./routers/tickets")
+const ticketsRouter = require("./routers/tickets");
 const userRouter = require("./routers/user");
-
+const eventRoutes = require("./routers/events");
 const rolesRouter = require("./routers/roles");
 app.use("/roles", rolesRouter);
 
+app.use("/events", eventRoutes);
+
 app.use("/user", userRouter);
 
-
-app.use("/tickets", ticketsRouter)
+app.use("/tickets", ticketsRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
