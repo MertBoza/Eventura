@@ -4,8 +4,13 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+
 const ticketsRouter = require("./routers/tickets")
 const userRouter = require("./routers/user");
+
+const rolesRouter = require("./routers/roles");
+app.use("/roles", rolesRouter);
+
 app.use("/user", userRouter);
 
 
