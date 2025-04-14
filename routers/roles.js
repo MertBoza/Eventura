@@ -5,6 +5,7 @@ const {
   deleteRole,
   getRoles,
 } = require("../controllers/roles");
+const verifyToken = require("../middleware/verifyToken");
 
 router.post("/", createRole);
 
@@ -15,4 +16,3 @@ router.delete("/:id", deleteRole);
 router.get("/", getRoles);
 
 module.exports = router;
- 

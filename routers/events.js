@@ -7,6 +7,7 @@ const {
   updateEvent,
   deleteEvent,
 } = require("../controllers/events");
+const verifyToken = require("../middleware/verifyToken");
 
 router.post("/", createEvent);
 
