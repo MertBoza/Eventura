@@ -9,6 +9,8 @@ const ticketsRouter = require("./routers/tickets");
 const userRouter = require("./routers/user");
 const eventRoutes = require("./routers/events");
 const rolesRouter = require("./routers/roles");
+const categoryRoutes = require("./routers/categories");
+app.use("/categories", categoryRoutes);
 app.use("/roles", rolesRouter);
 
 app.use("/events", eventRoutes);
