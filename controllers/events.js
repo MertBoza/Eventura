@@ -109,9 +109,14 @@ const updateEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
+    const eventId = parseInt(id);
+
+    await prisma.ticket.deleteMany({
+      where: { eventId },
+    });
 
     await prisma.event.delete({
-      where: { id: parseInt(id) },
+      where: { id: eventId },
     });
 
     res.send("Event deleted successfully");

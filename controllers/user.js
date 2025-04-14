@@ -1,5 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const createUser = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
@@ -37,10 +40,22 @@ const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const { firstName, lastName, email, password, roleId } = req.body;
+
+    const hashedPassword = password
+      ? await bcrypt.hash(password, 10)
+      : undefined;
+
     const updatedUser = await prisma.user.update({
       where: { id: parseInt(id) },
-      data: { firstName, lastName, email, password, roleId },
+      data: {
+        firstName,
+        lastName,
+        email,
+        roleId,
+        ...(hashedPassword && { password: hashedPassword }),
+      },
     });
+
     res.json(updatedUser);
   } catch (error) {
     console.error(error);
