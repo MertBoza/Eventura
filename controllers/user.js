@@ -27,6 +27,10 @@ const createUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
+    if (req.user.roleId !== 1) {
+      return res.status(403).send("Access denied");
+    }
+
     const { id } = req.params;
     await prisma.user.delete({ where: { id: parseInt(id) } });
     res.send("User deleted");
@@ -39,6 +43,11 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (req.user.id !== parseInt(id) && req.user.roleId !== 1) {
+      return res.status(403).send("Access denied");
+    }
+
     const { firstName, lastName, email, password, roleId } = req.body;
 
     const hashedPassword = password
@@ -65,6 +74,10 @@ const updateUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
+    if (req.user.roleId !== 1) {
+      return res.status(403).send("Access denied");
+    }
+
     const users = await prisma.user.findMany();
     res.json(users);
   } catch (error) {
@@ -76,6 +89,11 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (req.user.id !== parseInt(id) && req.user.roleId !== 1) {
+      return res.status(403).send("Access denied");
+    }
+
     const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
     res.json(user);
   } catch (error) {

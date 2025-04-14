@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const {
   createEvent,
   getAllEvents,
@@ -9,14 +8,10 @@ const {
 } = require("../controllers/events");
 const verifyToken = require("../middleware/verifyToken");
 
-router.post("/", createEvent);
-
-router.get("/", getAllEvents);
-
-router.get("/:id", getEventById);
-
-router.put("/:id", updateEvent);
-
-router.delete("/:id", deleteEvent);
+router.post("/", verifyToken, createEvent);
+router.get("/", verifyToken, getAllEvents);
+router.get("/:id", verifyToken, getEventById);
+router.put("/:id", verifyToken, updateEvent);
+router.delete("/:id", verifyToken, deleteEvent);
 
 module.exports = router;
