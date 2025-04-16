@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const path = require("path");
 
 const createEvent = async (req, res) => {
   try {
@@ -8,10 +9,12 @@ const createEvent = async (req, res) => {
       description,
       date,
       location,
-      imagePath,
+      
       categoryId,
       organizerId,
     } = req.body;
+
+    const imagePath = req.file ? path.join("uploads", req.file.filename) : null;
 
     const event = await prisma.event.create({
       data: {
@@ -20,8 +23,8 @@ const createEvent = async (req, res) => {
         date: new Date(date),
         location,
         imagePath,
-        categoryId,
-        organizerId,
+        categoryId: parseInt(categoryId),
+        organizerId: parseInt(organizerId),
       },
     });
 
@@ -81,10 +84,12 @@ const updateEvent = async (req, res) => {
       description,
       date,
       location,
-      imagePath,
       categoryId,
       organizerId,
     } = req.body;
+    const imagePath = req.file
+      ? path.join("uploads", req.file.filename)
+       :undefined;
 
     const updatedEvent = await prisma.event.update({
       where: { id: parseInt(id) },
@@ -94,8 +99,8 @@ const updateEvent = async (req, res) => {
         date: date ? new Date(date) : undefined,
         location,
         imagePath,
-        categoryId,
-        organizerId,
+        categoryId: categoryId ? parseInt(categoryId) : undefined,
+        organizerId: organizerId ? parseInt(organizerId) : undefined,
       },
     });
 

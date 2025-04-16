@@ -7,11 +7,12 @@ const {
   deleteEvent,
 } = require("../controllers/events");
 const verifyToken = require("../middleware/verifyToken");
+const multer = require("../middleware/multer");
 
-router.post("/", verifyToken, createEvent);
+router.post("/", verifyToken,multer, createEvent);
 router.get("/", verifyToken, getAllEvents);
 router.get("/:id", verifyToken, getEventById);
-router.put("/:id", verifyToken, updateEvent);
+router.put("/:id", verifyToken,multer, updateEvent);
 router.delete("/:id", verifyToken, deleteEvent);
 
 module.exports = router;
