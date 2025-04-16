@@ -48,7 +48,7 @@ model Event {
   description String?
   date        DateTime
   location    String
-  imagePath   String? // Nullable image path
+  imagePath   String? 
   categoryId  Int
   organizerId Int
   category    Category @relation(fields: [categoryId], references: [id])
