@@ -7,12 +7,12 @@ const {
 } = require("../controllers/roles");
 const verifyToken = require("../middleware/verifyToken");
 
-router.post("/", createRole);
+router.post("/", verifyToken, createRole);
 
-router.put("/:id", updateRole);
+router.put("/:id", verifyToken, updateRole);
 
-router.delete("/:id", deleteRole);
+router.delete("/:id", verifyToken, deleteRole);
 
-router.get("/", getRoles);
+router.get("/", verifyToken, getRoles); 
 
 module.exports = router;
