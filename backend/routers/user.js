@@ -9,8 +9,8 @@ const {
 } = require("../controllers/user");
 const verifyToken = require("../middleware/verifyToken");
 
-router.post("/", createUser); // Public - register
-router.post("/login", login); // Public - login
+router.post("/", createUser);
+router.post("/login", login);
 
 router.get("/", verifyToken, getAllUsers);
 router.get("/:id", verifyToken, getUser);

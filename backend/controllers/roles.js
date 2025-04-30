@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const getAllRoles = async (req, res) => {
   try {
     const roles = await prisma.role.findMany({
-      include: { privileges: true }
+      include: { privileges: true },
     });
     res.json(roles);
   } catch (err) {
@@ -16,7 +16,7 @@ const getRoleById = async (req, res) => {
   try {
     const role = await prisma.role.findUnique({
       where: { id: parseInt(req.params.id) },
-      include: { privileges: true }
+      include: { privileges: true },
     });
     if (!role) return res.status(404).send("Role not found");
     res.json(role);
@@ -34,9 +34,9 @@ const createRole = async (req, res) => {
         name,
         description,
         privileges: {
-          create: privileges
-        }
-      }
+          create: privileges,
+        },
+      },
     });
 
     res.json(newRole);
@@ -56,10 +56,10 @@ const updateRole = async (req, res) => {
         name,
         description,
         privileges: {
-          deleteMany: {}, 
-          create: privileges 
-        }
-      }
+          deleteMany: {},
+          create: privileges,
+        },
+      },
     });
 
     res.json(updatedRole);
@@ -72,11 +72,11 @@ const updateRole = async (req, res) => {
 const deleteRole = async (req, res) => {
   try {
     await prisma.rolePrivilege.deleteMany({
-      where: { roleId: parseInt(req.params.id) }
+      where: { roleId: parseInt(req.params.id) },
     });
 
     await prisma.role.delete({
-      where: { id: parseInt(req.params.id) }
+      where: { id: parseInt(req.params.id) },
     });
 
     res.send("Role deleted");
@@ -92,4 +92,3 @@ module.exports = {
   updateRole,
   deleteRole,
 };
-

@@ -3,7 +3,7 @@ const {
   createRole,
   updateRole,
   deleteRole,
-  getRoles,
+  getAllRoles,
 } = require("../controllers/roles");
 const verifyToken = require("../middleware/verifyToken");
 
@@ -13,6 +13,6 @@ router.put("/:id", verifyToken, updateRole);
 
 router.delete("/:id", verifyToken, deleteRole);
 
-router.get("/", verifyToken, getRoles); 
+router.get("/", verifyToken, getAllRoles);
 
 module.exports = router;
