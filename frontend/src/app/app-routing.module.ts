@@ -12,6 +12,11 @@ export const routes: Routes = [
     path: 'logging',
     loadChildren: () =>
       import('./views/logging/logging.module').then((m) => m.LoggingModule),
+  },
+  {
+    path: 'homepage',
+    loadChildren: () =>
+      import('./views/homepage/homepage.module').then((m) => m.HomepageModule),
   }
 ];
 
