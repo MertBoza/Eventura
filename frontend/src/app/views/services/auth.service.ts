@@ -15,6 +15,18 @@ export interface LoginResponse {
   token: string
 }
 
+export interface SignupCredentials {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+}
+
+export interface SignupResponse {
+  message: string
+  user: User
+}
+
 export interface User {
   id: number
   email: string
@@ -61,6 +73,19 @@ export class AuthService {
       catchError((error) => {
         console.error("Login failed", error)
         return throwError(() => new Error(error.error || "Login failed"))
+      }),
+    )
+  }
+
+  signup(credentials: SignupCredentials): Observable<SignupResponse> {
+    return this.http.post<SignupResponse>(`${this.API_URL}/user`, credentials).pipe(
+      tap((response) => {
+        console.log("Signup successful", response)
+        // Optional: You can auto-login or redirect here if needed
+      }),
+      catchError((error) => {
+        console.error("Signup failed", error)
+        return throwError(() => new Error(error.error || "Signup failed"))
       }),
     )
   }
