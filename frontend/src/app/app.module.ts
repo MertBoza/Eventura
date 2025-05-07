@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module'; // Import your routing module
+import { AppRoutingModule } from './app-routing.module'; 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [BrowserModule, AppRoutingModule], // Only import modules here
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule], 
 })
 export class AppModule {}

@@ -1,11 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { LoggingRoutingModule } from './logging-routing.module';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { LoggingComponent } from './logging.component';
+import { NgModule } from "@angular/core"
+import { CommonModule } from "@angular/common"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { RouterModule } from "@angular/router"
+import { LoggingRoutingModule } from "./logging-routing.module"
 
 // Import LoggingComponent as a standalone component
 
@@ -20,9 +17,7 @@ import { LoggingComponent } from './logging.component';
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    LoggingComponent,
-    LoginComponent,
-    SignupComponent
-  ]
+    // Remove standalone components from here - they should be imported where needed
+  ],
 })
 export class LoggingModule {}
