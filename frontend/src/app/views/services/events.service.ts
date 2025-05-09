@@ -26,7 +26,7 @@ export class EventService {
     const token = this.authService.getToken();
     if (token) {
       return new HttpHeaders({
-        Authorization: Bearer ${token},
+        Authorization: `Bearer ${token}`,
       });
     }
     return new HttpHeaders(); 
