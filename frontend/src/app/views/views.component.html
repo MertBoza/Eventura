@@ -1,1 +1,79 @@
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+     
+      <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+        <img src="assets/uploads/eventura.png" alt="Company Logo" width="40" height="40"
+             class="d-inline-block align-text-top me-2">
+        <span class="logo-text">Eventura</span>
+      </a>
+  
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+ 
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" routerLink="/homepage">Home</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/about">About us</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/gallery">Event gallery</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/contact">Contact</a></li>
+        </ul>
+        <div class="d-flex">
+          <a routerLink="/logging/login"><button class="btn btn-outline-primary me-2">Log In</button></a>
+          <a routerLink="/logging/signup"><button class="btn btn-primary">Sign Up</button></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <router-outlet></router-outlet>
+
+
+  <footer class="bg-white text-center py-5">
+    <div class="container d-flex flex-wrap justify-content-between">
+   
+      <div class="footer-column p-3" style="flex: 1 1 200px;">
+        <h3 class="text-primary fs-4 mb-3">About Eventura</h3>
+        <p class="text-muted">We set out to redefine digital experiences. What started as a passion project soon evolved into a full-fledged agency, and our journey has been marked by collaborations, and challenges.</p>
+      </div>
+
+      <div class="footer-column p-3" style="flex: 1 1 200px;">
+        <h3 class="text-primary fs-4 mb-3">Company</h3>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-muted text-decoration-none">About Us</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Our Services</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Our Works</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Career</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column p-3" style="flex: 1 1 200px;">
+        <h3 class="text-primary fs-4 mb-3">Resources</h3>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-muted text-decoration-none">Free eBooks</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Development Tutorial</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">How to - Blog</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Youtube Playlist</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column p-3" style="flex: 1 1 200px;">
+        <h3 class="text-primary fs-4 mb-3">Others</h3>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-muted text-decoration-none">Customer Support</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Delivery Details</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Terms & Conditions</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="text-center mt-4">
+      <p class="text-muted mb-0">© 2017-2025, All Rights Reserved</p>
+    </div>
+  </footer>
+  
+  

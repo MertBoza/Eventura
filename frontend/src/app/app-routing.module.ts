@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'logging/login' }, 
   {
-    path: 'views',
+    path: '',
     loadChildren: () =>
       import('./views/views.module').then((m) => m.ViewsModule),
   },
