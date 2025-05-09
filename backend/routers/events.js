@@ -10,8 +10,8 @@ const verifyToken = require("../middleware/verifyToken");
 const multer = require("../middleware/multer");
 
 router.post("/", verifyToken,multer, createEvent);
-router.get("/", verifyToken, getAllEvents);
-router.get("/:id", verifyToken, getEventById);
+router.get("/",  getAllEvents);
+router.get("/:id",  getEventById);
 router.put("/:id", verifyToken,multer, updateEvent);
 router.delete("/:id", verifyToken, deleteEvent);
 
