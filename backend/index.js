@@ -15,7 +15,7 @@ const rolesRouter = require("./routers/roles");
 const categoryRoutes = require("./routers/categories");
 app.use("/categories", categoryRoutes);
 app.use("/roles", rolesRouter);
-
+app.use("/uploads", express.static("uploads"));
 app.use("/events", eventRoutes);
 
 app.use("/user", userRouter);
