@@ -44,7 +44,7 @@ export class EventService {
   }
 
   getEventById(id: number): Observable<Event> {
-    return this.http.get<Event>(${this.API_URL}/${id}, {
+    return this.http.get<Event>(`${this.API_URL}/${id}`, {
       headers: this.getAuthHeaders(), 
     }).pipe(
       catchError((error) => {
@@ -88,7 +88,7 @@ export class EventService {
     if (eventData.organizerId) formData.append('organizerId', eventData.organizerId.toString());
     if (imageFile) formData.append('image', imageFile);
 
-    return this.http.put<Event>(${this.API_URL}/${id}, formData, {
+    return this.http.put<Event>(`${this.API_URL}/${id}`, formData, {
       headers: this.getAuthHeaders(),
     }).pipe(
       catchError((error) => {
@@ -99,7 +99,7 @@ export class EventService {
   }
 
   deleteEvent(id: number): Observable<any> {
-    return this.http.delete(${this.API_URL}/${id}, {
+    return this.http.delete(`${this.API_URL}/${id}`, {
       headers: this.getAuthHeaders(), 
     }).pipe(
       catchError((error) => {
