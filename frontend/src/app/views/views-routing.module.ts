@@ -17,7 +17,12 @@ const routes: Routes = [
       {
         path: 'eventgallery',
         loadComponent: () => import('./eventgallery/eventgallery.component').then(m => m.EventGalleryComponent),
-      }
+      },
+      {
+  path: 'events/:id',
+  loadComponent: () => import('./eventgallery/event-detail/event-detail.component').then(m => m.EventDetailComponent),
+}
+      
       
     ],
   },
