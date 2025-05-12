@@ -14,6 +14,11 @@ const routes: Routes = [
         path: 'homepage',
         loadChildren: () => import('./homepage/homepage.module').then(m => m.HomepageModule),
       },
+      {
+        path: 'eventgallery',
+        loadComponent: () => import('./eventgallery/eventgallery.component').then(m => m.EventGalleryComponent),
+      }
+      
     ],
   },
 ];
