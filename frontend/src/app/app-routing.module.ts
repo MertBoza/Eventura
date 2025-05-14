@@ -17,7 +17,12 @@ export const routes: Routes = [
     path: 'homepage',
     loadChildren: () =>
       import('./views/homepage/homepage.module').then((m) => m.HomepageModule),
-  }
+  },
+  {
+  path: 'admin',
+  loadChildren: () =>
+    import('./admin/admin.module').then((m) => m.AdminModule),
+}
 ];
 
 @NgModule({
