@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: '', redirectTo: 'roles', pathMatch: 'full' },
+      { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'roles', loadComponent: () => import('./roles/roles.component').then(m => m.RolesComponent) },
       { path: 'category', loadComponent: () => import('./category/category.component').then(m => m.CategoryComponent) },
       { path: 'events', loadComponent: () => import('./events/events.component').then(m => m.EventsComponent) },
