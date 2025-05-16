@@ -1,0 +1,53 @@
+<div class="container mt-4">
+    <h2>Users</h2>
+  
+    <div *ngIf="loading" class="alert alert-info">Loading users...</div>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  
+    <table class="table table-striped mt-3" *ngIf="users.length">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.roleId }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="viewUser(user)">View</button>
+            <button class="btn btn-sm btn-warning me-2" (click)="editUser(user)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteUser(user)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- View/Edit Panel -->
+    <div *ngIf="selectedUser" class="card mt-4">
+      <div class="card-header">
+        {{ editMode ? 'Edit User' : 'User Details' }}
+      </div>
+      <div class="card-body">
+        <form *ngIf="selectedUser">
+          <div class="mb-3">
+            <label>Email</label>
+            <input class="form-control" [(ngModel)]="selectedUser.email" name="email" [readonly]="!editMode" />
+          </div>
+          <div class="mb-3">
+            <label>Role ID</label>
+            <input class="form-control" type="number" [(ngModel)]="selectedUser.roleId" name="roleId" [readonly]="!editMode" />
+          </div>
+          <div class="d-flex justify-content-end">
+            <button *ngIf="editMode" type="button" class="btn btn-success me-2" (click)="saveUser()">Save</button>
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

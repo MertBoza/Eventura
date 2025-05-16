@@ -1,5 +1,5 @@
 import { Injectable, inject, signal } from "@angular/core"
-import { HttpClient } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Observable, tap, catchError, throwError } from "rxjs"
 import { Router } from "@angular/router"
 import { isPlatformBrowser } from "@angular/common"
@@ -81,7 +81,6 @@ export class AuthService {
     return this.http.post<SignupResponse>(`${this.API_URL}/user`, credentials).pipe(
       tap((response) => {
         console.log("Signup successful", response)
-      
       }),
       catchError((error) => {
         console.error("Signup failed", error)
@@ -139,12 +138,39 @@ export class AuthService {
     }
   }
 
-  getAuthHeaders() {
+  getAuthHeaders(): HttpHeaders {
     const token = this.getToken()
-    return token ? { Authorization: `Bearer ${token}` } : {}
+    return new HttpHeaders(
+      token ? { Authorization: `Bearer ${token}` } : {}
+    )
   }
 
   private isBrowser(): boolean {
     return isPlatformBrowser(this.platformId)
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.API_URL}/user`, {
+      headers: this.getAuthHeaders()
+    })
+  }
+
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.API_URL}/user/${id}`, {
+      headers: this.getAuthHeaders()
+    })
+  }
+
+  updateUser(id: string, data: Partial<User>): Observable<User> {
+    return this.http.put<User>(`${this.API_URL}/user/${id}`, data, {
+      headers: this.getAuthHeaders()
+    })
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete<void>(`${this.API_URL}/user/${id}`, { 
+      headers: this.getAuthHeaders(), 
+      responseType: 'text' as 'json' 
+    });
   }
 }
