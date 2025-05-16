@@ -1,0 +1,147 @@
+<div class="container my-4">
+    <h2>Events</h2>
+  
+    <div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
+  
+    <form (ngSubmit)="saveEvent()" class="row g-3 mb-4" #eventForm="ngForm" autocomplete="off">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input
+          id="name"
+          class="form-control"
+          [(ngModel)]="formEvent().name"
+          name="name"
+          required
+          #name="ngModel"
+        />
+        <div class="text-danger" *ngIf="name.invalid && name.touched">Name is required.</div>
+      </div>
+  
+      <div class="col-md-6">
+        <label for="date" class="form-label">Date</label>
+        <input
+          id="date"
+          type="date"
+          class="form-control"
+          [(ngModel)]="formEvent().date"
+          name="date"
+          required
+          #date="ngModel"
+        />
+        <div class="text-danger" *ngIf="date.invalid && date.touched">Date is required.</div>
+      </div>
+  
+      <div class="col-md-12">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          class="form-control"
+          [(ngModel)]="formEvent().description"
+          name="description"
+          rows="3"
+          required
+          #description="ngModel"
+        ></textarea>
+        <div class="text-danger" *ngIf="description.invalid && description.touched">Description is required.</div>
+      </div>
+  
+      <div class="col-md-6">
+        <label for="location" class="form-label">Location</label>
+        <input
+          id="location"
+          class="form-control"
+          [(ngModel)]="formEvent().location"
+          name="location"
+          required
+          #location="ngModel"
+        />
+        <div class="text-danger" *ngIf="location.invalid && location.touched">Location is required.</div>
+      </div>
+  
+      <div class="col-md-6">
+        <label for="categoryId" class="form-label">Category ID</label>
+        <input
+          id="categoryId"
+          type="number"
+          class="form-control"
+          [(ngModel)]="formEvent().categoryId"
+          name="categoryId"
+          required
+          #categoryId="ngModel"
+        />
+        <div class="text-danger" *ngIf="categoryId.invalid && categoryId.touched">Category ID is required.</div>
+      </div>
+  
+      <div class="col-md-6">
+        <label for="organizerId" class="form-label">Organizer ID</label>
+        <input
+          id="organizerId"
+          type="number"
+          class="form-control"
+          [(ngModel)]="formEvent().organizerId"
+          name="organizerId"
+          required
+          #organizerId="ngModel"
+        />
+        <div class="text-danger" *ngIf="organizerId.invalid && organizerId.touched">Organizer ID is required.</div>
+      </div>
+  
+      <div class="col-md-6">
+        <label for="image" class="form-label">Event Image</label>
+        <input
+          id="image"
+          type="file"
+          accept="image/*"
+          class="form-control"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+  
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="eventForm.invalid">
+          {{ editingId ? 'Update Event' : 'Create Event' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  
+    <hr />
+  
+    <h3>Event List</h3>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Category ID</th>
+          <th>Organizer ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events()">
+          <td>{{ event.name }}</td>
+          <td>{{ event.date }}</td>
+          <td>{{ event.location }}</td>
+          <td>{{ event.categoryId }}</td>
+          <td>{{ event.organizerId }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-2" (click)="editEvent(event)">
+              Edit
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              (click)="deleteEvent(event.id)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

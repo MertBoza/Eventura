@@ -58,17 +58,17 @@ export class EventService {
     const formData = new FormData();
     formData.append('name', eventData.name);
     formData.append('description', eventData.description);
-    formData.append('date', eventData.date);
+    formData.append('date', new Date(eventData.date).toISOString());
     formData.append('location', eventData.location);
     formData.append('categoryId', eventData.categoryId.toString());
     formData.append('organizerId', eventData.organizerId.toString());
-
+  
     if (imageFile) {
       formData.append('image', imageFile);
     }
-
+  
     return this.http.post<Event>(this.API_URL, formData, {
-      headers: this.getAuthHeaders(), 
+      headers: this.getAuthHeaders(),
     }).pipe(
       catchError((error) => {
         console.error('Error creating event', error);
@@ -76,18 +76,18 @@ export class EventService {
       })
     );
   }
-
+  
   updateEvent(id: number, eventData: Partial<Event>, imageFile?: File): Observable<Event> {
     const formData = new FormData();
-
+  
     if (eventData.name) formData.append('name', eventData.name);
     if (eventData.description) formData.append('description', eventData.description);
-    if (eventData.date) formData.append('date', eventData.date);
+    if (eventData.date) formData.append('date', new Date(eventData.date).toISOString());
     if (eventData.location) formData.append('location', eventData.location);
     if (eventData.categoryId) formData.append('categoryId', eventData.categoryId.toString());
     if (eventData.organizerId) formData.append('organizerId', eventData.organizerId.toString());
     if (imageFile) formData.append('image', imageFile);
-
+  
     return this.http.put<Event>(`${this.API_URL}/${id}`, formData, {
       headers: this.getAuthHeaders(),
     }).pipe(
