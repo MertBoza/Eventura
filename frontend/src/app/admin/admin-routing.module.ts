@@ -9,6 +9,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'roles', pathMatch: 'full' },
       { path: 'roles', loadComponent: () => import('./roles/roles.component').then(m => m.RolesComponent) },
+      { path: 'category', loadComponent: () => import('./category/category.component').then(m => m.CategoryComponent) },
     ]
   }
 ];
