@@ -5,7 +5,11 @@ import { AuthService } from './auth.service';
 
 export interface Privilege {
   id?: number;
-  name: string;
+ 
+  select?: boolean;
+  insert?: boolean;
+  update?: boolean;
+  delete?: boolean;
 }
 
 export interface Role {
@@ -25,15 +29,17 @@ export class RoleService {
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.authService.getToken();
+    if (!token) {
+      console.warn('RoleService: No auth token found');
+    }
     return token
       ? new HttpHeaders({ Authorization: `Bearer ${token}` })
       : new HttpHeaders();
   }
 
   getAllRoles(): Observable<Role[]> {
-    return this.http.get<Role[]>(this.API_URL, {
-      headers: this.getAuthHeaders(),
-    }).pipe(
+    const headers = this.getAuthHeaders();
+    return this.http.get<Role[]>(this.API_URL, { headers }).pipe(
       catchError((error) => {
         console.error('Error fetching roles', error);
         return throwError(() => new Error(error.message || 'An error occurred'));
@@ -42,9 +48,8 @@ export class RoleService {
   }
 
   getRoleById(id: number): Observable<Role> {
-    return this.http.get<Role>(`${this.API_URL}/${id}`, {
-      headers: this.getAuthHeaders(),
-    }).pipe(
+    const headers = this.getAuthHeaders();
+    return this.http.get<Role>(`${this.API_URL}/${id}`, { headers }).pipe(
       catchError((error) => {
         console.error('Error fetching role by ID', error);
         return throwError(() => new Error(error.message || 'An error occurred'));
@@ -52,10 +57,9 @@ export class RoleService {
     );
   }
 
-  createRole(role: { name: string; description: string; privileges: Privilege[] }): Observable<Role> {
-    return this.http.post<Role>(this.API_URL, role, {
-      headers: this.getAuthHeaders(),
-    }).pipe(
+  createRole(role: Omit<Role, 'id'>): Observable<Role> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<Role>(this.API_URL, role, { headers }).pipe(
       catchError((error) => {
         console.error('Error creating role', error);
         return throwError(() => new Error(error.message || 'An error occurred'));
@@ -63,10 +67,9 @@ export class RoleService {
     );
   }
 
-  updateRole(id: number, role: { name: string; description: string; privileges: Privilege[] }): Observable<Role> {
-    return this.http.put<Role>(`${this.API_URL}/${id}`, role, {
-      headers: this.getAuthHeaders(),
-    }).pipe(
+  updateRole(id: number, role: Omit<Role, 'id'>): Observable<Role> {
+    const headers = this.getAuthHeaders();
+    return this.http.put<Role>(`${this.API_URL}/${id}`, role, { headers }).pipe(
       catchError((error) => {
         console.error('Error updating role', error);
         return throwError(() => new Error(error.message || 'An error occurred'));
@@ -75,9 +78,8 @@ export class RoleService {
   }
 
   deleteRole(id: number): Observable<any> {
-    return this.http.delete(`${this.API_URL}/${id}`, {
-      headers: this.getAuthHeaders(),
-    }).pipe(
+    const headers = this.getAuthHeaders();
+    return this.http.delete(`${this.API_URL}/${id}`, { headers }).pipe(
       catchError((error) => {
         console.error('Error deleting role', error);
         return throwError(() => new Error(error.message || 'An error occurred'));
