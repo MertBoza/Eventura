@@ -12,6 +12,7 @@ const routes: Routes = [
       { path: 'category', loadComponent: () => import('./category/category.component').then(m => m.CategoryComponent) },
       { path: 'events', loadComponent: () => import('./events/events.component').then(m => m.EventsComponent) },
       { path: 'users', loadComponent: () => import('./users/users.component').then(m => m.UsersComponent) },
+      { path: 'tickets', loadComponent: () => import('./tickets/tickets.component').then(m => m.TicketsComponent) },
     ]
   }
 ];

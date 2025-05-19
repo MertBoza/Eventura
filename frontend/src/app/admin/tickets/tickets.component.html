@@ -1,0 +1,110 @@
+<div class="container mt-4">
+    <h2>Tickets Management</h2>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+    <!-- Ticket List -->
+    <div *ngIf="tickets().length === 0" class="alert alert-info">
+      No tickets found.
+    </div>
+  
+    <ul class="list-group mb-4">
+      <li
+        *ngFor="let ticket of tickets()"
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <strong>ID:</strong> {{ ticket.id }} |
+          <strong>Event:</strong> {{ ticket.eventId }} |
+          <strong>User:</strong> {{ ticket.userId }} |
+          <strong>Price:</strong> {{ ticket.price | currency }} |
+          <strong>Status:</strong> {{ ticket.status }}
+        </div>
+        <div>
+          <button
+            class="btn btn-sm btn-primary me-2"
+            (click)="editTicket(ticket)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deleteTicket(ticket.id!)"
+          >
+            Delete
+          </button>
+        </div>
+      </li>
+    </ul>
+  
+    <!-- Ticket Form -->
+    <div class="card p-3">
+      <h4>{{ editingTicket() ? 'Edit Ticket' : 'Create Ticket' }}</h4>
+  
+      <form (ngSubmit)="saveTicket()">
+        <div class="mb-3">
+          <label for="eventId" class="form-label">Event ID</label>
+          <input
+            type="number"
+            id="eventId"
+            class="form-control"
+            [(ngModel)]="formTicket.eventId"
+            name="eventId"
+            required
+          />
+        </div>
+  
+        <div class="mb-3">
+          <label for="userId" class="form-label">User ID</label>
+          <input
+            type="number"
+            id="userId"
+            class="form-control"
+            [(ngModel)]="formTicket.userId"
+            name="userId"
+            required
+          />
+        </div>
+  
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input
+            type="number"
+            id="price"
+            class="form-control"
+            [(ngModel)]="formTicket.price"
+            name="price"
+            required
+            min="0"
+            step="0.01"
+          />
+        </div>
+  
+        <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <select
+            id="status"
+            class="form-select"
+            [(ngModel)]="formTicket.status"
+            name="status"
+          >
+            <option value="available">Available</option>
+            <option value="reserved">Reserved</option>
+            <option value="sold">Sold</option>
+          </select>
+        </div>
+  
+        <button type="submit" class="btn btn-success me-2">
+          {{ editingTicket() ? 'Update' : 'Create' }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+  
