@@ -3,7 +3,6 @@
   
     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
   
-    <!-- Ticket List -->
     <div *ngIf="tickets().length === 0" class="alert alert-info">
       No tickets found.
     </div>
@@ -37,7 +36,7 @@
       </li>
     </ul>
   
-    <!-- Ticket Form -->
+  
     <div class="card p-3">
       <h4>{{ editingTicket() ? 'Edit Ticket' : 'Create Ticket' }}</h4>
   
