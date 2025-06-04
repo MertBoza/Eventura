@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  background-color: #f8f9fa;
+}
+
+.card {
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+h4 {
+  border-left: 4px solid #0d6efd;
+  padding-left: 0.75rem;
+}

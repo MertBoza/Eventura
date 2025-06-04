@@ -18,6 +18,10 @@ const routes: Routes = [
         path: 'eventgallery',
         loadComponent: () => import('./eventgallery/eventgallery.component').then(m => m.EventGalleryComponent),
       },
+        {
+        path: 'aboutus',
+        loadComponent: () => import('./aboutus/aboutus.component').then(m => m.AboutusComponent),
+      },
       {
   path: 'events/:id',
   loadComponent: () => import('./eventgallery/event-detail/event-detail.component').then(m => m.EventDetailComponent),
