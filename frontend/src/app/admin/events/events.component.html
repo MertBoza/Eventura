@@ -1,147 +1,74 @@
-<div class="container my-4">
-    <h2>Events</h2>
-  
-    <div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
-  
-    <form (ngSubmit)="saveEvent()" class="row g-3 mb-4" #eventForm="ngForm" autocomplete="off">
-      <div class="col-md-6">
-        <label for="name" class="form-label">Name</label>
-        <input
-          id="name"
-          class="form-control"
-          [(ngModel)]="formEvent().name"
-          name="name"
-          required
-          #name="ngModel"
-        />
-        <div class="text-danger" *ngIf="name.invalid && name.touched">Name is required.</div>
-      </div>
-  
-      <div class="col-md-6">
-        <label for="date" class="form-label">Date</label>
-        <input
-          id="date"
-          type="date"
-          class="form-control"
-          [(ngModel)]="formEvent().date"
-          name="date"
-          required
-          #date="ngModel"
-        />
-        <div class="text-danger" *ngIf="date.invalid && date.touched">Date is required.</div>
-      </div>
-  
-      <div class="col-md-12">
-        <label for="description" class="form-label">Description</label>
-        <textarea
-          id="description"
-          class="form-control"
-          [(ngModel)]="formEvent().description"
-          name="description"
-          rows="3"
-          required
-          #description="ngModel"
-        ></textarea>
-        <div class="text-danger" *ngIf="description.invalid && description.touched">Description is required.</div>
-      </div>
-  
-      <div class="col-md-6">
-        <label for="location" class="form-label">Location</label>
-        <input
-          id="location"
-          class="form-control"
-          [(ngModel)]="formEvent().location"
-          name="location"
-          required
-          #location="ngModel"
-        />
-        <div class="text-danger" *ngIf="location.invalid && location.touched">Location is required.</div>
-      </div>
-  
-      <div class="col-md-6">
-        <label for="categoryId" class="form-label">Category ID</label>
-        <input
-          id="categoryId"
-          type="number"
-          class="form-control"
-          [(ngModel)]="formEvent().categoryId"
-          name="categoryId"
-          required
-          #categoryId="ngModel"
-        />
-        <div class="text-danger" *ngIf="categoryId.invalid && categoryId.touched">Category ID is required.</div>
-      </div>
-  
-      <div class="col-md-6">
-        <label for="organizerId" class="form-label">Organizer ID</label>
-        <input
-          id="organizerId"
-          type="number"
-          class="form-control"
-          [(ngModel)]="formEvent().organizerId"
-          name="organizerId"
-          required
-          #organizerId="ngModel"
-        />
-        <div class="text-danger" *ngIf="organizerId.invalid && organizerId.touched">Organizer ID is required.</div>
-      </div>
-  
-      <div class="col-md-6">
-        <label for="image" class="form-label">Event Image</label>
-        <input
-          id="image"
-          type="file"
-          accept="image/*"
-          class="form-control"
-          (change)="onFileSelected($event)"
-        />
-      </div>
-  
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary me-2" [disabled]="eventForm.invalid">
-          {{ editingId ? 'Update Event' : 'Create Event' }}
-        </button>
-        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
-          Cancel
-        </button>
-      </div>
-    </form>
-  
-    <hr />
-  
-    <h3>Event List</h3>
-  
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Date</th>
-          <th>Location</th>
-          <th>Category ID</th>
-          <th>Organizer ID</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let event of events()">
-          <td>{{ event.name }}</td>
-          <td>{{ event.date }}</td>
-          <td>{{ event.location }}</td>
-          <td>{{ event.categoryId }}</td>
-          <td>{{ event.organizerId }}</td>
-          <td>
-            <button class="btn btn-sm btn-warning me-2" (click)="editEvent(event)">
-              Edit
-            </button>
-            <button
-              class="btn btn-sm btn-danger"
-              (click)="deleteEvent(event.id)"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container mt-4">
+  <h2 class="mb-3">{{ editingId ? 'Edit Event' : 'Create New Event' }}</h2>
+
+  <div *ngIf="error() as errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
   </div>
-  
+
+  <form (ngSubmit)="saveEvent()" class="mb-5">
+    <div class="mb-3">
+      <label for="name" class="form-label">Event Name</label>
+      <input type="text" id="name" name="name" [(ngModel)]="formEvent().name" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" name="description" [(ngModel)]="formEvent().description" class="form-control" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input type="datetime-local" id="date" name="date" [(ngModel)]="formEvent().date" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="location" class="form-label">Location</label>
+      <input type="text" id="location" name="location" [(ngModel)]="formEvent().location" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="categoryId" class="form-label">Category</label>
+      <select id="categoryId" name="categoryId" [(ngModel)]="formEvent().categoryId" class="form-select" required>
+        <option value="" disabled selected>Select Category</option>
+        <option *ngFor="let category of categories()" [value]="category.id">{{ category.name }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="organizerId" class="form-label">Organizer</label>
+      <select id="organizerId" name="organizerId" [(ngModel)]="formEvent().organizerId" class="form-select" required>
+        <option value="" disabled selected>Select Organizer</option>
+        <option *ngFor="let user of users()" [value]="user.id">{{ user.email }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Event Image</label>
+      <input type="file" id="image" (change)="onFileSelected($event)" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">{{ editingId ? 'Update Event' : 'Create Event' }}</button>
+    <button *ngIf="editingId" type="button" (click)="cancelEdit()" class="btn btn-secondary ms-2">Cancel</button>
+  </form>
+
+  <hr />
+
+  <h3 class="mb-3">All Events</h3>
+
+  <div *ngFor="let event of events()" class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ event.name }}</h5>
+      <p class="card-text">{{ event.description }}</p>
+      <p class="card-text">
+        <small class="text-muted">{{ event.date }} | {{ event.location }}</small>
+      </p>
+      <p class="card-text">
+        <small>Category ID: {{ event.categoryId }} | Organizer ID: {{ event.organizerId }}</small>
+      </p>
+      <div class="mt-2">
+        <button class="btn btn-sm btn-warning me-2" (click)="editEvent(event)">Edit</button>
+        <button class="btn btn-sm btn-danger" (click)="deleteEvent(event.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

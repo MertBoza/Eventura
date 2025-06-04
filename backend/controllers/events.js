@@ -9,12 +9,12 @@ const createEvent = async (req, res) => {
       description,
       date,
       location,
-      
+
       categoryId,
       organizerId,
     } = req.body;
 
-    const imagePath = req.file ? path.join("uploads", req.file.filename) : null;
+    const imagePath = req.file ? path.join("uploads", req.file.filename) : null;
 
     const event = await prisma.event.create({
       data: {
@@ -79,17 +79,11 @@ const getEventById = async (req, res) => {
 const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      name,
-      description,
-      date,
-      location,
-      categoryId,
-      organizerId,
-    } = req.body;
+    const { name, description, date, location, categoryId, organizerId } =
+      req.body;
     const imagePath = req.file
       ? path.join("uploads", req.file.filename)
-       :undefined;
+      : undefined;
 
     const updatedEvent = await prisma.event.update({
       where: { id: parseInt(id) },
@@ -100,7 +94,7 @@ const updateEvent = async (req, res) => {
         location,
         imagePath,
         categoryId: categoryId ? parseInt(categoryId) : undefined,
-        organizerId: organizerId ? parseInt(organizerId) : undefined,
+        organizerId: organizerId ? parseInt(organizerId) : undefined,
       },
     });
 
@@ -124,7 +118,7 @@ const deleteEvent = async (req, res) => {
       where: { id: eventId },
     });
 
-    res.send("Event deleted successfully");
+    res.json({ message: "Event deleted successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error deleting event");
