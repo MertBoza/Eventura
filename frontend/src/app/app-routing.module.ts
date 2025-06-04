@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'logging/login' }, 
+  { path: '', pathMatch: 'full', redirectTo: 'homepage' }, 
   {
     path: '',
     loadChildren: () =>

@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigate(["/views/homepage"]);
+        this.router.navigate(["/homepage"]);
       },
       error: (error) => {
         this.isSubmitting = false;

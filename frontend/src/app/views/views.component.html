@@ -22,8 +22,13 @@
           <li class="nav-item"><a class="nav-link" routerLink="/contact">Contact</a></li>
         </ul>
         <div class="d-flex">
-          <a routerLink="/logging/login"><button class="btn btn-outline-primary me-2">Log In</button></a>
-          <a routerLink="/logging/signup"><button class="btn btn-primary">Sign Up</button></a>
+          <button *ngIf="isAuthenticated; else loggedOut" (click)="logout()" class="btn btn-outline-primary me-2">
+            Log Out
+          </button>
+          <ng-template #loggedOut>
+            <a routerLink="/logging/login"><button class="btn btn-outline-primary me-2">Log In</button></a>
+          </ng-template>
+
         </div>
       </div>
     </div>
