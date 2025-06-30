@@ -32,6 +32,9 @@
         <button *ngIf="isAuthenticated; else loggedOut" (click)="logout()" class="btn btn-outline-primary me-2">
           Log Out
         </button>
+        <a *ngIf="isAuthenticated" routerLink="/profilepage">
+  <button class="btn btn-outline-secondary me-2">Edit Profile</button>
+</a>
 
         <ng-template #loggedOut>
           <a routerLink="/logging/login">

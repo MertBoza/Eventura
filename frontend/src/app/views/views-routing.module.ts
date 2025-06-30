@@ -35,6 +35,10 @@ const routes: Routes = [
         loadComponent: () => import('./mytickets/mytickets.component').then(m => m.MyTicketsComponent)
       },
       {
+        path: 'profilepage',
+        loadComponent: () => import('./profile-page/profile-page.component').then(m => m.EditProfileComponent)
+      },
+      {
   path: 'events/:id',
   loadComponent: () => import('./eventgallery/event-detail/event-detail.component').then(m => m.EventDetailComponent),
 }
