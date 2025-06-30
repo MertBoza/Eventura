@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigate(["/homepage"]);
+
+        // ✅ Pass `fromLogin` to trigger homepage reload
+        this.router.navigate(["/homepage"], { state: { fromLogin: true } });
       },
       error: (error) => {
         this.isSubmitting = false;

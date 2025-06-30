@@ -23,6 +23,10 @@ const routes: Routes = [
         loadComponent: () => import('./aboutus/aboutus.component').then(m => m.AboutusComponent),
       },
       {
+        path: 'servicesp',
+        loadComponent: () => import('./servicesp/servicesp.component').then(m => m.ServicespComponent),
+      },
+      {
   path: 'events/:id',
   loadComponent: () => import('./eventgallery/event-detail/event-detail.component').then(m => m.EventDetailComponent),
 }

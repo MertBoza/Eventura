@@ -32,6 +32,12 @@ export class HomepageComponent implements OnInit {
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
+    const navigation = history.state;
+    if (navigation && navigation.fromLogin) {
+      history.replaceState({}, ''); // Clear flag after refresh
+      location.reload();
+    }
+
     this.loadRandomEvents();
   }
 
@@ -44,13 +50,10 @@ export class HomepageComponent implements OnInit {
         alt: event.name
       }));
 
-      
       if (data.length > 0) {
         const randomIndex = Math.floor(Math.random() * data.length);
         this.randomEvent = data[randomIndex];
       }
     });
   }
-
-
 }
