@@ -12,22 +12,44 @@
   <div class="card shadow-lg">
     <div class="row g-0">
       <div class="col-md-5">
-        <img [src]="'http://localhost:3000/' + event.imagePath" class="img-fluid rounded-start h-100 w-100 object-fit-cover" alt="{{ event.name }}">
+        <img
+          [src]="'http://localhost:3000/' + event.imagePath"
+          class="img-fluid rounded-start h-100 w-100 object-fit-cover"
+          alt="{{ event.name }}"
+        />
       </div>
       <div class="col-md-7">
         <div class="card-body">
           <h2 class="card-title text-primary">{{ event.name }}</h2>
           <p class="card-text">
             <i class="bi bi-calendar-event me-2"></i>
-            <strong>Date:</strong> {{ event.date | date:'medium' }}
+            <strong>Date:</strong> {{ event.date | date: 'medium' }}
           </p>
           <p class="card-text">
             <i class="bi bi-geo-alt me-2"></i>
             <strong>Location:</strong> {{ event.location }}
           </p>
-          <hr>
+          <hr />
           <h5 class="mt-3">Description</h5>
           <p class="card-text">{{ event.description }}</p>
+
+      
+          <div class="mt-4 text-center">
+            <button
+              class="btn btn-success"
+              (click)="buyTicket()"
+              [disabled]="ticketPurchased"
+            >
+              {{ ticketPurchased ? 'Ticket Purchased' : 'Buy Ticket - $10' }}
+            </button>
+
+            <div *ngIf="ticketSuccess" class="alert alert-success mt-3">
+              Ticket successfully purchased!
+            </div>
+            <div *ngIf="ticketError" class="alert alert-danger mt-3">
+              Failed to purchase ticket. Please try again.
+            </div>
+          </div>
         </div>
       </div>
     </div>
