@@ -118,32 +118,34 @@ export class AuthService {
   public getUserFromToken(): User | null {
     const token = this.getToken();
     if (!token) return null;
-
+  
     try {
       const base64Url = token.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const jsonPayload = decodeURIComponent(
         atob(base64)
           .split("")
-          .map((c) => {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
+          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
           .join("")
       );
-
+  
       const parsedPayload = JSON.parse(jsonPayload);
-      console.log("JWT payload decoded:", parsedPayload);
-
+  
+      if (!parsedPayload.id || !parsedPayload.email || !parsedPayload.roleId) {
+        throw new Error("Invalid token payload");
+      }
+  
       return {
         id: parsedPayload.id,
         email: parsedPayload.email,
-        roleId: parsedPayload.roleId
+        roleId: parsedPayload.roleId,
       };
     } catch (error) {
       console.error("Error decoding token", error);
       return null;
     }
   }
+  
 
   getAuthHeaders(): HttpHeaders {
     const token = this.getToken();

@@ -42,7 +42,7 @@ export class RolesComponent implements OnInit {
   }
 
   saveRole() {
-    // Strip out any id or name from privileges before sending
+   
     const payload = {
       ...this.formRole,
       privileges: this.formRole.privileges.map(({ id,  ...flags }) => ({
@@ -82,7 +82,7 @@ export class RolesComponent implements OnInit {
       id: 0,
       name: '',
       description: '',
-      privileges: [], // start empty, admin can add privileges
+      privileges: [],
     };
   }
 

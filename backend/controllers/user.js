@@ -27,7 +27,7 @@ const createUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    if (req.user.roleId !== 1) {
+    if (req.user.roleId !== 3) {
       return res.status(403).send("Access denied");
     }
 
@@ -44,7 +44,7 @@ const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (req.user.id !== parseInt(id) && req.user.roleId !== 1) {
+    if (req.user.id !== parseInt(id) && req.user.roleId !== 3) {
       return res.status(403).send("Access denied");
     }
 
@@ -74,7 +74,7 @@ const updateUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    if (req.user.roleId !== 1) {
+    if (req.user.roleId !== 3) {
       return res.status(403).send("Access denied");
     }
 
@@ -90,7 +90,7 @@ const getUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (req.user.id !== parseInt(id) && req.user.roleId !== 1) {
+    if (req.user.id !== parseInt(id) && req.user.roleId !== 3) {
       return res.status(403).send("Access denied");
     }
 
