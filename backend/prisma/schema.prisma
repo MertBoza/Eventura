@@ -12,6 +12,7 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
 model User {
   id        Int      @id @default(autoincrement())
   firstName String
@@ -48,7 +49,7 @@ model Event {
   description String?
   date        DateTime
   location    String
-  imagePath   String? 
+  imagePath   String?
   categoryId  Int
   organizerId Int
   category    Category @relation(fields: [categoryId], references: [id])
@@ -70,4 +71,13 @@ model Ticket {
   status  String @default("available")
   event   Event  @relation(fields: [eventId], references: [id])
   user    User?  @relation(fields: [userId], references: [id])
+}
+
+model ContactUs {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
 }

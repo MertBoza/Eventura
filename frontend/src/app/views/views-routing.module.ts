@@ -27,6 +27,10 @@ const routes: Routes = [
         loadComponent: () => import('./servicesp/servicesp.component').then(m => m.ServicespComponent),
       },
       {
+        path: 'contactus',
+        loadComponent: () => import('./contact-us/contact-us.component').then(m => m.ContactUsComponent),
+      },
+      {
   path: 'events/:id',
   loadComponent: () => import('./eventgallery/event-detail/event-detail.component').then(m => m.EventDetailComponent),
 }

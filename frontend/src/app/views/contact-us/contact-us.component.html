@@ -1,0 +1,68 @@
+<section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="fw-bold mb-4 text-center">Contact Us</h2>
+      <form (ngSubmit)="onSubmit()" #contactForm="ngForm" novalidate>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            class="form-control" 
+            required
+            [(ngModel)]="contact.name" 
+            name="name"
+            #name="ngModel"
+          >
+          <div *ngIf="name.invalid && name.touched" class="text-danger">Name is required.</div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            class="form-control" 
+            required
+            [(ngModel)]="contact.email" 
+            name="email"
+            #email="ngModel"
+          >
+          <div *ngIf="email.invalid && email.touched" class="text-danger">Valid email is required.</div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="subject" class="form-label">Subject</label>
+          <input 
+            type="text" 
+            id="subject" 
+            class="form-control" 
+            required
+            [(ngModel)]="contact.subject" 
+            name="subject"
+            #subject="ngModel"
+          >
+          <div *ngIf="subject.invalid && subject.touched" class="text-danger">Subject is required.</div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea 
+            id="message" 
+            class="form-control" 
+            rows="5" 
+            required
+            [(ngModel)]="contact.message" 
+            name="message"
+            #message="ngModel"
+          ></textarea>
+          <div *ngIf="message.invalid && message.touched" class="text-danger">Message is required.</div>
+        </div>
+  
+        <button class="btn btn-primary" type="submit" [disabled]="contactForm.invalid">Send Message</button>
+      </form>
+  
+      <div *ngIf="success" class="alert alert-success mt-3">Thank you for contacting us!</div>
+      <div *ngIf="error" class="alert alert-danger mt-3">Failed to send message. Please try again.</div>
+    </div>
+  </section>
+  

@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 const ticketsRouter = require("./routers/tickets");
+const contactusRouter = require("./routers/contactus");
 const userRouter = require("./routers/user");
 const eventRoutes = require("./routers/events");
 const rolesRouter = require("./routers/roles");
@@ -17,6 +18,7 @@ app.use("/categories", categoryRoutes);
 app.use("/roles", rolesRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/events", eventRoutes);
+app.use("/contactus", contactusRouter);
 
 app.use("/user", userRouter);
 
