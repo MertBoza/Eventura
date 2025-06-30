@@ -2,6 +2,15 @@
   <div class="container">
     <h2 class="fw-bold mb-4 text-center">Event Gallery</h2>
 
+    <!-- Category Filter -->
+    <div class="mb-4 text-center">
+      <label for="categoryFilter" class="form-label me-2 fw-semibold">Filter by Category:</label>
+      <select id="categoryFilter" class="form-select d-inline-block w-auto" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
+        <option value="">All Categories</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+      </select>
+    </div>
+
     <div *ngIf="isLoading" class="text-center">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -11,7 +20,9 @@
     <div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
 
     <div class="row g-4" *ngIf="!isLoading && !error">
-      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let event of events">
+      <div
+        class="col-sm-6 col-md-4 col-lg-3"
+        *ngFor="let event of filteredEvents">
         <a [routerLink]="['/events', event.id]" class="text-decoration-none text-dark">
           <div class="card h-100">
             <img [src]="'http://localhost:3000/' + event.imagePath" [alt]="event.name" class="card-img-top" />
