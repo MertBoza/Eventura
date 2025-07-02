@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../views/services/auth.service';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -8,6 +10,16 @@ import { RouterModule } from '@angular/router';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
+  ngOnInit(): void {
+    const user = this.authService.getCurrentUser();
+    const isAuthenticated = this.authService.isAuthenticatedNow();
+
+    if (!isAuthenticated || !user || user.roleId !== 3) {
+      this.router.navigate(['/homepage']);
+    }
+  }
 }
